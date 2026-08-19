@@ -1,0 +1,16 @@
+function(hp_tcp_enable_sanitizers target_name)
+  if(HP_TCP_ENABLE_ASAN)
+    target_compile_options(${target_name} PRIVATE -fsanitize=address -fno-omit-frame-pointer)
+    target_link_options(${target_name} PRIVATE -fsanitize=address)
+  endif()
+
+  if(HP_TCP_ENABLE_TSAN)
+    target_compile_options(${target_name} PRIVATE -fsanitize=thread -fno-omit-frame-pointer)
+    target_link_options(${target_name} PRIVATE -fsanitize=thread)
+  endif()
+
+  if(HP_TCP_ENABLE_UBSAN)
+    target_compile_options(${target_name} PRIVATE -fsanitize=undefined -fno-omit-frame-pointer)
+    target_link_options(${target_name} PRIVATE -fsanitize=undefined)
+  endif()
+endfunction()
